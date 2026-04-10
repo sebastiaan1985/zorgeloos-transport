@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <defs>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#166D35"/>
+      <stop offset="50%" style="stop-color:#2A9D4E"/>
+      <stop offset="100%" style="stop-color:#ED6B06"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Text: Zorgeloos -->
+  <text x="10" y="52" font-family="Rubik, sans-serif" font-weight="800" font-size="42" fill="#0E4D27">Zorgeloos</text>
+  
+  <!-- Text: auto -->
+  <text x="10" y="95" font-family="Rubik, sans-serif" font-weight="800" font-size="38" fill="#0E4D27">auto</text>
+  
+  <!-- Text: transport -->
+  <text x="105" y="95" font-family="Rubik, sans-serif" font-weight="800" font-size="38" fill="#ED6B06">transport</text>
+
+  <!-- ZT Monogram Circle -->
+  <g transform="translate(340, 55)">
+    <!-- Circle background -->
+    <circle cx="0" cy="0" r="38" fill="none" stroke="url(#brandGrad)" stroke-width="3"/>
+    <!-- Half circle top -->
+    <path d="M -20 -12 A 20 20 0 0 1 20 -12" fill="none" stroke="#2A9D4E" stroke-width="4" stroke-linecap="round"/>
+    <!-- Z -->
+    <text x="-14" y="8" font-family="Rubik, sans-serif" font-weight="900" font-size="30" fill="#166D35">Z</text>
+    <!-- T -->
+    <text x="4" y="8" font-family="Rubik, sans-serif" font-weight="900" font-size="30" fill="#ED6B06">T</text>
+  </g>
+</svg>
