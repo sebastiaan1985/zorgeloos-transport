@@ -1,6 +1,7 @@
 /**
  * Zorgeloos Autotransport — Main JavaScript
  * Handles: Navigation, Scroll effects, FAQ, Form, Animations
+ * Multi-page compatible
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,12 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
     lastScroll = currentScroll;
   }
 
-  window.addEventListener('scroll', handleHeaderScroll, { passive: true });
+  if (header) {
+    window.addEventListener('scroll', handleHeaderScroll, { passive: true });
+  }
 
   // ─── Mobile Navigation ───
   const mobileToggle = document.getElementById('mobile-toggle');
   const mobileNav = document.getElementById('mobile-nav');
-  const mobileNavLinks = document.querySelectorAll('[data-nav]');
 
   if (mobileToggle && mobileNav) {
     mobileToggle.addEventListener('click', () => {
@@ -33,7 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
     });
 
-    mobileNavLinks.forEach(link => {
+    // Close mobile nav when clicking a link (for same-page anchor links)
+    mobileNav.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         mobileToggle.classList.remove('active');
         mobileNav.classList.remove('open');
@@ -42,38 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ─── Active Navigation Link ───
-  const navLinks = document.querySelectorAll('.nav-link');
-  const sections = document.querySelectorAll('section[id]');
-
-  function handleActiveNav() {
-    const scrollY = window.scrollY + 200;
-
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const sectionId = section.getAttribute('id');
-
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
-          }
-        });
-      }
-    });
-  }
-
-  window.addEventListener('scroll', handleActiveNav, { passive: true });
-
-  // ─── Smooth Scroll for Anchor Links ───
+  // ─── Smooth Scroll for Same-Page Anchor Links ───
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-      const target = document.querySelector(this.getAttribute('href'));
+      const href = this.getAttribute('href');
+      if (href === '#') return; // skip plain # links
+      const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
-        const headerHeight = header.offsetHeight;
+        const headerHeight = header ? header.offsetHeight : 0;
         const targetPos = target.getBoundingClientRect().top + window.scrollY - headerHeight;
         
         window.scrollTo({
@@ -87,99 +67,104 @@ document.addEventListener('DOMContentLoaded', () => {
   // ─── FAQ Accordion ───
   const faqItems = document.querySelectorAll('.faq-item');
 
-  faqItems.forEach(item => {
-    const question = item.querySelector('.faq-question');
-    
-    question.addEventListener('click', () => {
-      const isActive = item.classList.contains('active');
+  if (faqItems.length > 0) {
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      if (!question) return;
+      
+      question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
 
-      // Close all FAQ items
-      faqItems.forEach(faq => {
-        faq.classList.remove('active');
+        // Close all FAQ items
+        faqItems.forEach(faq => {
+          faq.classList.remove('active');
+        });
+
+        // Open clicked item if it wasn't already open
+        if (!isActive) {
+          item.classList.add('active');
+        }
       });
-
-      // Open clicked item if it wasn't already open
-      if (!isActive) {
-        item.classList.add('active');
-      }
     });
-  });
+  }
 
   // ─── Scroll Reveal Animations ───
   const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
 
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px 0px -80px 0px',
-    threshold: 0.1
-  };
+  if (revealElements.length > 0) {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -80px 0px',
+      threshold: 0.1
+    };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  revealElements.forEach(el => {
-    observer.observe(el);
-  });
-
-  // ─── Counter Animation ───
-  const counterElements = document.querySelectorAll('.hero-stat-number');
-  let countersAnimated = false;
-
-  function animateCounters() {
-    if (countersAnimated) return;
-    
-    const heroSection = document.querySelector('.hero');
-    if (!heroSection) return;
-    
-    const rect = heroSection.getBoundingClientRect();
-    if (rect.top > window.innerHeight || rect.bottom < 0) return;
-
-    countersAnimated = true;
-    
-    counterElements.forEach(counter => {
-      const text = counter.textContent;
-      // Extract the number portion
-      const match = text.match(/\d+/);
-      if (!match) return;
-      
-      const target = parseInt(match[0]);
-      const suffix = text.replace(match[0], '');
-      let current = 0;
-      const increment = target / 60;
-      const duration = 2000;
-      const stepTime = duration / 60;
-
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-          current = target;
-          clearInterval(timer);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
-        // Reconstruct with accent span
-        const accentMatch = counter.querySelector('.accent');
-        if (accentMatch) {
-          const accentText = accentMatch.textContent;
-          counter.innerHTML = `${Math.floor(current)}<span class="accent">${accentText}</span>`;
-        }
-      }, stepTime);
+      });
+    }, observerOptions);
+
+    revealElements.forEach(el => {
+      observer.observe(el);
     });
   }
 
-  window.addEventListener('scroll', animateCounters, { passive: true });
-  animateCounters(); // Run on load too
+  // ─── Counter Animation (only on homepage) ───
+  const counterElements = document.querySelectorAll('.hero-stat-number');
+  let countersAnimated = false;
+
+  if (counterElements.length > 0) {
+    function animateCounters() {
+      if (countersAnimated) return;
+      
+      const heroSection = document.querySelector('.hero');
+      if (!heroSection) return;
+      
+      const rect = heroSection.getBoundingClientRect();
+      if (rect.top > window.innerHeight || rect.bottom < 0) return;
+
+      countersAnimated = true;
+      
+      counterElements.forEach(counter => {
+        const text = counter.textContent;
+        const match = text.match(/\d+/);
+        if (!match) return;
+        
+        const target = parseInt(match[0]);
+        const suffix = text.replace(match[0], '');
+        let current = 0;
+        const increment = target / 60;
+        const duration = 2000;
+        const stepTime = duration / 60;
+
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          const accentMatch = counter.querySelector('.accent');
+          if (accentMatch) {
+            const accentText = accentMatch.textContent;
+            counter.innerHTML = `${Math.floor(current)}<span class="accent">${accentText}</span>`;
+          }
+        }, stepTime);
+      });
+    }
+
+    window.addEventListener('scroll', animateCounters, { passive: true });
+    animateCounters(); // Run on load too
+  }
 
   // ─── Cookie Banner ───
   const cookieBanner = document.getElementById('cookie-banner');
   const cookieAccept = document.getElementById('cookie-accept');
   const cookieDecline = document.getElementById('cookie-decline');
 
-  if (!localStorage.getItem('cookiesAccepted')) {
+  if (cookieBanner && !localStorage.getItem('cookiesAccepted')) {
     setTimeout(() => {
       cookieBanner.style.display = 'block';
     }, 2000);
@@ -188,19 +173,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (cookieAccept) {
     cookieAccept.addEventListener('click', () => {
       localStorage.setItem('cookiesAccepted', 'true');
-      cookieBanner.style.display = 'none';
+      if (cookieBanner) cookieBanner.style.display = 'none';
     });
   }
 
   if (cookieDecline) {
     cookieDecline.addEventListener('click', () => {
       localStorage.setItem('cookiesAccepted', 'false');
-      cookieBanner.style.display = 'none';
+      if (cookieBanner) cookieBanner.style.display = 'none';
     });
   }
 
-  // ─── Parallax Effect on Hero ───
-  const heroImage = document.querySelector('.hero-bg img');
+  // ─── Parallax Effect on Hero (homepage only) ───
+  const heroImage = document.querySelector('.hero .hero-bg img');
   
   if (heroImage) {
     window.addEventListener('scroll', () => {
@@ -211,9 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
-  // ─── USP Bar animation on mobile (text marquee) ─── 
-  // Already handled by CSS overflow scroll
-
   console.log('🚗 Zorgeloos Autotransport — Website geladen');
 });
 
@@ -223,6 +205,8 @@ function handleFormSubmit(event) {
   
   const form = event.target;
   const submitBtn = form.querySelector('#form-submit-btn');
+  if (!submitBtn) return;
+  
   const originalText = submitBtn.innerHTML;
 
   // Show loading state
