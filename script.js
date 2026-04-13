@@ -218,25 +218,58 @@ function handleFormSubmit(event) {
   `;
   submitBtn.disabled = true;
 
-  // Simulate form submission
+  // Simulate form submission, then redirect to bedankt page
   setTimeout(() => {
-    submitBtn.innerHTML = `
-      <svg class="btn-icon" style="transform: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="20 6 9 17 4 12"/>
-      </svg>
-      Verzonden! Wij nemen contact op.
-    `;
-    submitBtn.style.background = 'var(--green-700)';
-    
-    // Reset after 4 seconds
-    setTimeout(() => {
-      form.reset();
-      submitBtn.innerHTML = originalText;
-      submitBtn.disabled = false;
-      submitBtn.style.background = '';
-    }, 4000);
+    window.location.href = 'bedankt.html';
   }, 1500);
 }
+
+// ─── Hero Quick-Quote Handler (global) ───
+function handleHeroQuote(event) {
+  event.preventDefault();
+
+  const ophaal = document.getElementById('hero-ophaal');
+  const aflever = document.getElementById('hero-aflever');
+
+  if (!ophaal || !aflever) return;
+
+  const params = new URLSearchParams();
+  if (ophaal.value.trim()) params.set('ophaal', ophaal.value.trim());
+  if (aflever.value.trim()) params.set('aflever', aflever.value.trim());
+
+  window.location.href = 'contact.html?' + params.toString();
+}
+
+// ─── Prefill Contact Form from URL Params ───
+function prefillFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  
+  const ophaalField = document.getElementById('form-ophaal');
+  const afleverField = document.getElementById('form-aflever');
+
+  if (ophaalField && params.get('ophaal')) {
+    ophaalField.value = params.get('ophaal');
+  }
+  if (afleverField && params.get('aflever')) {
+    afleverField.value = params.get('aflever');
+  }
+
+  // Auto-scroll to the form if URL params are present
+  if (params.get('ophaal') || params.get('aflever')) {
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+      setTimeout(() => {
+        const header = document.getElementById('site-header');
+        const headerHeight = header ? header.offsetHeight : 0;
+        const formTop = contactForm.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+        window.scrollTo({ top: formTop, behavior: 'smooth' });
+      }, 500);
+    }
+  }
+}
+
+// Run prefill on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', prefillFromURL);
 
 // Add spin animation for loading
 const styleSheet = document.createElement('style');
@@ -247,3 +280,4 @@ styleSheet.textContent = `
   }
 `;
 document.head.appendChild(styleSheet);
+

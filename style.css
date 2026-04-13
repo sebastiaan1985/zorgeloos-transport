@@ -1736,6 +1736,475 @@ p {
 .stagger-children .reveal:nth-child(4) { transition-delay: 300ms; }
 .stagger-children .reveal:nth-child(5) { transition-delay: 400ms; }
 
+/* ---------- HERO QUICK-QUOTE FORM ---------- */
+.hero-quote-form {
+  margin-top: var(--space-10);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  animation: fadeInUp 0.8s ease-out 0.5s both;
+  max-width: 680px;
+}
+
+.hero-quote-form-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hero-quote-form-label svg {
+  width: 16px;
+  height: 16px;
+  color: var(--orange-400);
+}
+
+.hero-quote-form-inner {
+  display: flex;
+  gap: var(--space-3);
+  align-items: stretch;
+}
+
+.hero-quote-field {
+  flex: 1;
+  position: relative;
+}
+
+.hero-quote-field svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--neutral-400);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-quote-field input {
+  width: 100%;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  padding: 14px 16px 14px 42px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.1);
+  color: var(--white);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.hero-quote-field input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+.hero-quote-field input:focus {
+  border-color: var(--orange-400);
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 0 0 3px rgba(237,107,6,0.15);
+}
+
+.hero-quote-submit {
+  flex-shrink: 0;
+}
+
+.hero-quote-submit .btn {
+  height: 100%;
+  padding: 14px 28px;
+  white-space: nowrap;
+}
+
+.hero-quote-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: rgba(255,255,255,0.3);
+  padding: 0 var(--space-1);
+}
+
+.hero-quote-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---------- WERKGEBIED SECTION ---------- */
+.werkgebied-section {
+  padding: var(--space-32) 0;
+  background: var(--white);
+  position: relative;
+}
+
+.werkgebied-header {
+  text-align: center;
+  margin-bottom: var(--space-16);
+}
+
+.werkgebied-header .section-label {
+  justify-content: center;
+}
+
+.werkgebied-header .section-description {
+  margin: 0 auto;
+}
+
+.werkgebied-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.werkgebied-card {
+  background: var(--neutral-50);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6) var(--space-8);
+  border: 1px solid var(--neutral-100);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.werkgebied-card:hover {
+  border-color: var(--green-200);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.werkgebied-card.werkgebied-home {
+  background: var(--green-50);
+  border-color: var(--green-200);
+}
+
+.werkgebied-card.werkgebied-home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-brand);
+}
+
+.werkgebied-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--green-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+}
+
+.werkgebied-card.werkgebied-home .werkgebied-card-icon {
+  background: var(--green-700);
+}
+
+.werkgebied-card.werkgebied-home .werkgebied-card-icon svg {
+  color: var(--white);
+}
+
+.werkgebied-card-icon svg {
+  width: 22px;
+  height: 22px;
+  color: var(--green-700);
+}
+
+.werkgebied-card h4 {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+}
+
+.werkgebied-card .werkgebied-badge {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--green-700);
+  background: var(--green-100);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-3);
+}
+
+.werkgebied-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.werkgebied-card ul li {
+  font-size: var(--font-size-sm);
+  color: var(--neutral-500);
+  padding: var(--space-1) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.werkgebied-card ul li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--orange-400);
+  flex-shrink: 0;
+}
+
+.werkgebied-card.werkgebied-wide {
+  grid-column: span 2;
+  background: linear-gradient(135deg, var(--green-800) 0%, var(--green-600) 100%);
+  border-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.werkgebied-card.werkgebied-wide:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.werkgebied-card.werkgebied-wide h4 {
+  color: var(--white);
+  font-size: var(--font-size-2xl);
+}
+
+.werkgebied-card.werkgebied-wide p {
+  color: rgba(255,255,255,0.7);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-6);
+}
+
+.werkgebied-card.werkgebied-wide .werkgebied-card-icon {
+  background: rgba(255,255,255,0.15);
+}
+
+.werkgebied-card.werkgebied-wide .werkgebied-card-icon svg {
+  color: var(--white);
+}
+
+.werkgebied-cta {
+  text-align: center;
+  margin-top: var(--space-12);
+}
+
+.werkgebied-cta p {
+  font-size: var(--font-size-lg);
+  color: var(--neutral-500);
+  margin-bottom: var(--space-4);
+}
+
+/* ---------- MOBILE STICKY CTA ---------- */
+.mobile-sticky-cta {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 998;
+  background: var(--white);
+  border-top: 1px solid var(--neutral-100);
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+  padding: var(--space-3) var(--space-4);
+}
+
+.mobile-sticky-cta-inner {
+  display: flex;
+  gap: var(--space-3);
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.mobile-sticky-cta .btn-sticky {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  line-height: 1;
+}
+
+.mobile-sticky-cta .btn-sticky svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.mobile-sticky-cta .btn-sticky-call {
+  background: var(--white);
+  color: var(--green-700);
+  border: 2px solid var(--green-700);
+}
+
+.mobile-sticky-cta .btn-sticky-call:active {
+  background: var(--green-50);
+}
+
+.mobile-sticky-cta .btn-sticky-offerte {
+  background: var(--gradient-orange);
+  color: var(--white);
+  border: 2px solid transparent;
+  box-shadow: 0 2px 8px rgba(237,107,6,0.3);
+}
+
+.mobile-sticky-cta .btn-sticky-offerte:active {
+  opacity: 0.9;
+}
+
+/* ---------- BEDANKT PAGE ---------- */
+.bedankt-section {
+  padding: var(--space-32) 0;
+  background: var(--neutral-50);
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.bedankt-content {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.bedankt-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--green-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-8);
+  animation: bedanktPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+  position: relative;
+}
+
+.bedankt-icon::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid var(--green-200);
+  animation: bedanktRing 1s ease-out 0.6s both;
+}
+
+.bedankt-icon svg {
+  width: 48px;
+  height: 48px;
+  color: var(--green-600);
+}
+
+@keyframes bedanktPop {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bedanktRing {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.bedankt-content h1 {
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--space-4);
+  animation: fadeInUp 0.6s ease-out 0.5s both;
+}
+
+.bedankt-content h1 .text-gradient {
+  background: linear-gradient(135deg, var(--green-600), var(--green-400));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bedankt-content > p {
+  font-size: var(--font-size-lg);
+  color: var(--neutral-500);
+  margin-bottom: var(--space-10);
+  animation: fadeInUp 0.6s ease-out 0.6s both;
+}
+
+.bedankt-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-bottom: var(--space-12);
+  animation: fadeInUp 0.6s ease-out 0.7s both;
+}
+
+.bedankt-step {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--neutral-100);
+}
+
+.bedankt-step-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--orange-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-3);
+}
+
+.bedankt-step-icon svg {
+  width: 22px;
+  height: 22px;
+  color: var(--orange-500);
+}
+
+.bedankt-step h4 {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+}
+
+.bedankt-step p {
+  font-size: var(--font-size-xs);
+  color: var(--neutral-400);
+  line-height: 1.5;
+}
+
+.bedankt-actions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  animation: fadeInUp 0.6s ease-out 0.8s both;
+}
+
 /* ---------- RESPONSIVE ---------- */
 
 @media (max-width: 1024px) {
@@ -1775,6 +2244,15 @@ p {
   .cta-content {
     flex-direction: column;
     text-align: center;
+  }
+
+  /* Werkgebied */
+  .werkgebied-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .werkgebied-card.werkgebied-wide {
+    grid-column: span 2;
   }
 }
 
@@ -1839,6 +2317,20 @@ p {
     min-width: 100px;
   }
 
+  /* Hero Quote Form */
+  .hero-quote-form-inner {
+    flex-direction: column;
+  }
+
+  .hero-quote-arrow {
+    display: none;
+  }
+
+  .hero-quote-submit .btn {
+    width: 100%;
+    padding: 14px;
+  }
+
   /* Diensten */
   .diensten-grid {
     grid-template-columns: 1fr;
@@ -1848,6 +2340,15 @@ p {
   .werkwijze-steps {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-6);
+  }
+
+  /* Werkgebied */
+  .werkgebied-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .werkgebied-card.werkgebied-wide {
+    grid-column: span 1;
   }
 
   /* Reviews */
@@ -1885,6 +2386,32 @@ p {
     gap: var(--space-4);
     text-align: center;
   }
+
+  /* Mobile Sticky CTA */
+  .mobile-sticky-cta {
+    display: block;
+  }
+
+  body {
+    padding-bottom: 64px;
+  }
+
+  .whatsapp-button {
+    bottom: 78px;
+  }
+
+  /* Bedankt */
+  .bedankt-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .bedankt-actions {
+    flex-direction: column;
+  }
+
+  .bedankt-actions .btn {
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1909,13 +2436,17 @@ p {
   .whatsapp-button {
     width: 56px;
     height: 56px;
-    bottom: 20px;
+    bottom: 78px;
     right: 20px;
   }
 
   .whatsapp-button svg {
     width: 28px;
     height: 28px;
+  }
+
+  .bedankt-content h1 {
+    font-size: var(--font-size-3xl);
   }
 }
 
